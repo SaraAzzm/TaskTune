@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sign Up
+{% endblock %}
+
+{% block main %}
+    <div class="container py-5 text-center">
+        <h2 class="form-title mb-3">Sign Up</h2>
+        <p class="mb-2 error-color">{{ apology }}</p>
+
+        <form action="/signup" method="post">
+            <div class="mb-2">
+                <input class="form-control mx-auto w-auto" name="username" autofocus autocomplete="off" placeholder="Username" type="text">
+            </div>
+            <div class="mb-2">
+                <input class="form-control mx-auto w-auto" name="password" placeholder="Password" type="password">
+            </div>
+            <div class="mb-3">
+                <input class="form-control mx-auto w-auto" name="confirmation" placeholder="Confirm Password" type="password">
+            </div>
+            <button class="btn btn-primary button-color" type="submit">Sign Up</button>
+        </form>
+    </div>
+{% endblock %}

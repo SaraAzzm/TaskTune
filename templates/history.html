@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+    <div class="stat-container dark-color mx-md-5 mx-sm-3 mx-3">
+        <h2 class="mb-2 text-center"><b>Completed Tasks</b></h2>
+
+        <!-- Check if user has any completed tasks -->
+        {% if completed_tasks %}
+        <div class="table-responsive-custom mx-md-5 mx-sm-3 mx-2 mt-4">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col" style="width: 25%;">Task Title</th>
+                        <th scope="col" style="width: 35%;">Description</th>
+                        <th scope="col" style="width: 25%;">Deadline</th>
+                        <th scope="col" style="width: 15%;">Completion Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for completed_task in completed_tasks %}
+                    <tr>
+                        <!-- Column 1 - title -->
+                        <td scope="row">{{ completed_task["title"] }}</td>
+
+                        <!-- Column 2 - description -->
+                        <td>
+                            <!-- Check description dropdown button -->
+                            <p class="my-pointer table-description mb-0">
+                                Check Description<i class="bi bi-caret-down-fill dropdown-icon-table ms-1" style="font-size: 0.7rem;"></i>
+                            </p>
+
+                            <p class="description-dropdown mb-0 me-4 mt-1" style="display: none; text-align: justify;">{{ completed_task["description"] }}</p>
+                        </td>
+                        
+                        <!-- If the task had no deadline display a dash -->
+                        {% if completed_task["deadline"] %}
+                            <td>{{ completed_task["deadline"] | deadline}}</td>
+                        {% else %}
+                            <td>&mdash;</td>
+                        {% endif %}
+
+                        <!-- If the task was completed after due date, display completeion date in red -->
+                        {% if completed_task["deadline"] and completed_task["completed_at"] | date_comparison > completed_task["deadline"] | date_comparison %}
+                            <td style="color: red;">{{ completed_task["completed_at"] | deadline}}</td>
+                        {% else %}
+                            <td>{{ completed_task["completed_at"] | deadline}}</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- Display a message if there isn't any completed tasks yet -->
+        {% else %}
+            <div class="middle-container">
+                <p class="small text-center text-muted">You don't have any completed tasks.</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

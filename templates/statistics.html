@@ -1,0 +1,143 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Statistics
+{% endblock %}
+
+{% block main %}
+    <div class="stat-container dark-color mx-md-5 mx-sm-3 mx-3">
+
+        <!-- Task Overview Section -->
+        <h4><b>Task Overview</b></h4>
+        <hr class="mt-1">
+
+        <div class="table-responsive-custom mx-md-5 mx-sm-3 mx-2 mt-4">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col" style="width: 50%;">Statistic</th>
+                        <th scope="col" style="width: 25%;">Value</th>
+                        <th scope="col" style="width: 25%;">Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <!-- If the user has no statistics yet, display dashes -->
+                {% if statistic_list %}
+                    {% for statistic in statistic_list %}
+                        <tr>
+                            <th scope="row">{{ statistic }}</th>
+                            <td>&mdash;</td>
+                            <td>&mdash;</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    {% for statistic in statistics %}
+                        <tr>
+                            <th scope="row">{{ statistic.statistic }}</th>
+                            <td>{{ statistic.value }} tasks</td>
+                            <td>{{ statistic.percentage }}%</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Emotional Insights Section -->
+        <div class="emotional-stats">
+
+            <h4><b>Emotional Insights</b></h4>
+            <div class="card-buttons">
+                <p class="line me-2"></p>
+                <p class="mb-0"> Understand how your emotions impact your productivity!</p>
+            </div>
+            <hr class="mt-1">
+
+            <div class="table-responsive-custom mx-md-5 mx-sm-3 mx-2 mt-4">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 40%;">Metric</th>
+                            <th scope="col" style="width: 30%;">Value</th>
+                            <th scope="col" style="width: 30%;">Indicator</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- User has no completed tasks - No emotional stats -->
+                        {% if statistic_list or not eps_table %}
+                            <tr>
+                                <th scope="row">Emotional Productivity Score (EPS)</th>
+                                <td>&mdash;</td>
+                                <td>&mdash;</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Task Completion & EPS Correlation</th>
+                                <td>&mdash;</td>
+                                <td>&mdash;</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <th scope="row">Emotional Productivity Score (EPS)</th>
+                                <td>{{ eps_table["eps"] }} <span class="epsValues">&ndash;{{ eps_table["eps_value"] }}</span></td>
+                                <td>{{ eps_table["indicator1"] }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Task Completion & EPS Correlation</th>
+                                <td>
+                                    <p class="mb-1 mt-1">EPS: {{ eps_table["eps"] }} <span class="epsValues">&ndash;{{ eps_table["eps_value"] }}</span></p>
+                                    <p class="mb-0">Task Completion: {{ statistics[0]["percentage"] }}% <span class="epsValues">&ndash;{{ eps_table["completion_value"] }}</span></p>
+                                </td>
+                                <td>{{ eps_table["indicator2"] }}</td>
+                            </tr>
+                        {% endif%}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Learn more dropdown button -->
+            <div class="mt-4">
+                <button class="btn btn-primary button-color" id="dropdown" type="button">
+                    Learn More About EPS <i class="bi bi-caret-down-fill ms-1" id="dropdown-icon" style="font-size: 0.8rem;"></i>
+                </button>
+            </div>
+
+            <!-- Learn more dropdown content -->
+            <div class="mt-3" id="paragraph" style="display: none;">
+                <p class="learn-more-titles medium-color mb-1"><b>What is EPS?</b></p>
+                <p>
+                    The <b>Emotional Productivity Score (EPS)</b> is a measure that combines your emotional state with your task productivity.
+                    It helps you understand how your emotions affect your work performance. Tracking EPS alongside other metrics reveals
+                    patterns and indicators, helping identify areas for improvement and support.
+                </p>
+
+                <p class="learn-more-titles medium-color mb-1"><b>How is EPS Calculated?</b></p>
+                <p class="mb-0">
+                    The EPS is calculated by considering both the number of tasks you’ve completed and the emotions associated with them. For each task, we assign a value based on your emotional response:
+                    <ul class="my-1">
+                        <li>+1 for positive emotions (e.g., happiness or motivation)</li>
+                        <li>0 for neutral emotions</li>
+                        <li>-1 for negative emotions (e.g., stress or anxiousness)</li>
+                    </ul>
+                    Your EPS is the average of these values across all completed tasks. More positive emotions result in a higher EPS, while negative emotions lead to a lower score.
+                 </p>
+
+                <p class="learn-more-titles medium-color mb-1"><b>Understanding Your EPS Score</b></p>
+                <p class="mb-0"><b>Positive EPS (> 0):</b> Indicates that you are completing tasks while generally feeling positive.</p>
+                <p class="mb-0"><b>Neutral EPS (&asymp; 0):</b> Suggests that your emotions are balanced.</p>
+                <p class="mb-0"><b>Negative EPS (< 0):</b> Reflects that you are experiencing negative emotions while working.</p>
+            </div>
+
+            <!-- Resources section -->
+            <div class="mt-4">
+                <h4><b>Resources</b></h4>
+                <p class="mb-2">
+                    For a deeper dive into managing your emotions and boosting your productivity, check out the resources below <b>:)</b>
+                </p>
+                <ul>
+                    <li><a class="resource" href="https://talsuccess.com/how-emotions-affect-your-productivity/">How Emotions Affect Productivity</a></li>
+                    <li><a class="resource" href="https://www.drchloe.com/blog/how-to-boost-productivity-by-recognizing-emotions">Tips for Managing Your Emotions</a></li>
+                    <li><a class="resource" href="https://www.forbes.com/councils/forbescoachescouncil/2023/12/13/practical-steps-to-boost-your-productivity/">How to Boost Your Productivity</a></li>
+                </ul>
+            </div>
+    </div>
+{% endblock %}

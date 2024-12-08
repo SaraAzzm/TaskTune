@@ -1,0 +1,146 @@
+nav .navbar-brand
+{
+    font-size: x-large;
+}
+
+.bg-color {
+    background-color: #edf1f6;
+}
+
+.dark-color {
+    color: #081f5c;
+}
+
+.medium-color {
+    color: #334eac;
+}
+
+.overdue-color {
+    background-color: #ffa1a1;
+}
+
+.error-color {
+    color: red;
+}
+
+.font {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.nav-link:hover {
+    color: #334eac;
+}
+
+.button-color {
+    background-color: #081f5c;
+    border-color: #081f5c;
+}
+
+.button-color:hover {
+    background-color: #334eac;
+    border-color: #334eac;
+}
+
+.form-control:focus {
+    border-color: #334eac;
+    box-shadow: 0 0 6px #334eac;
+}
+
+.form-title {
+    color: #081f5c;
+    font-weight: 700;
+}
+
+.middle-container {
+    display: flex;
+    height: 60vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.complete-button {
+    font-size: 1.35rem;
+    margin-top: 0.15rem;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+}
+
+.task-header {
+    margin-top: 0.25rem;
+}
+
+.card-buttons {
+    display: flex;
+}
+
+.card-footer {
+    margin-top: auto;
+    padding: 0rem;
+    border: none;
+    background-color: white;
+}
+
+.deadline {
+    font-size: 0.97rem;
+}
+
+.date-red {
+    color: #ff2e2e;
+}
+
+.stat-container {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+}
+
+tr {
+    border-bottom: 1px solid #ced4da;
+    height: 2.5rem;
+}
+
+.line {
+    border-top: 2px solid;
+    border-color: #081f5c;
+    opacity: 1;
+    width: 2rem;
+    margin-top: 0.7rem;
+}
+
+.resource {
+    color: #334eac;
+}
+
+.emotional-stats {
+    margin-top: 2.5rem;
+}
+
+.table-responsive-custom {
+    overflow-x: auto;
+}
+
+.table-responsive-custom table {
+    width: 100%;
+    min-width: 900px; /*62.5rem*/
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.dropdown-toggle:focus {
+    background-color: #334eac;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.my-pointer {
+    cursor: pointer;
+}
+
+td p {
+    overflow-wrap: break-word;
+}
+
+.learn-more-titles {
+    font-size: 19px;
+}

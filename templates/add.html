@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add Task
+{% endblock %}
+
+{% block main %}
+    <div class="container py-3">
+        <h2 class="form-title mb-2 text-center">Add a Task</h2>
+        <p class="mb-2 error-color text-center">{{ apology }}</p>
+
+        <div class="d-flex justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6 px-2 px-md-3 dark-color">
+                <form action="/add" method="post">
+                    <!-- Title Input -->
+                    <div class="form-group mb-3">
+                        <label for="title">Task Title</label>
+                        <input type="text" maxlength="30" class="form-control" autofocus autocomplete="off" id="title" name="title" placeholder="Enter task title">
+                    </div>
+
+                    <!-- Description Textarea -->
+                    <div class="form-group mb-3">
+                        <label for="description">Task Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="5" placeholder="Enter task description"></textarea>
+                    </div>
+
+                    <!-- Select Emotion -->
+                    <div class="form-group mb-3">
+                        <label for="emotion">How do you feel about this task?</label>
+                        <select name="emotion" id="emotion" class="form-select form-control">
+                            <option disabled selected value="">Select an emotion</option>
+                            {% for emotion in emotions %}
+                                <option value="{{ emotion }}">{{ emotion }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Optional Deadline Input -->
+                    <div class="form-group mb-3">
+                        <label for="deadline">Deadline (Optional)</label>
+                        <input type="date" class="form-control mb-1" id="deadline" name="date">
+                        <input type="time" class="form-control" name="time">
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary button-color w-100">Add Task</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
